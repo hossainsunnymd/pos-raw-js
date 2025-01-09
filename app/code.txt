@@ -1,0 +1,13 @@
+
+<script>
+ async  function showUpdateModal(id) {
+
+        let res = await axios.get(`/category-by-id?id=${id}`);
+        console.log(res.data);
+        document.getElementById('category_name').value=res.data['name'];
+        document.getElementById('user_id').value=res.data['user_id'];
+        document.getElementById('editModalButton').click();
+    }
+
+
+</script>
