@@ -8,7 +8,7 @@ class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 
         <!-- Modal header -->
         <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
             <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-                Update Category
+                Update Customer
             </h3>
             <button type="button"
                 class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
@@ -26,17 +26,17 @@ class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 
             <div class="grid gap-4 mb-4 grid-cols-2">
 
                 <div class="col-span-2">
-                    <label for="C-name" class="block mb-2 text-sm font-medium ">Category Name</label>
+                    <label for="C-name" class="block mb-2 text-sm font-medium "> Name</label>
                     <input type="text" id="C-name" name="C-name"
                         class="border text-sm rounded-lg block w-full p-2.5">
                 </div>
                 <div class="col-span-2">
-                    <label for="C-email" class="block mb-2 text-sm font-medium ">Category Name</label>
+                    <label for="C-email" class="block mb-2 text-sm font-medium "> Email</label>
                     <input type="text" id="C-email" name="C-email"
                         class="border text-sm rounded-lg block w-full p-2.5">
                 </div>
                 <div class="col-span-2">
-                    <label for="C-mobile" class="block mb-2 text-sm font-medium ">Category Name</label>
+                    <label for="C-mobile" class="block mb-2 text-sm font-medium "> Mobile</label>
                     <input type="text" id="C-mobile" name="C-mobile"
                         class="border text-sm rounded-lg block w-full p-2.5">
                 </div>
@@ -68,7 +68,8 @@ async function updateCustomer(){
    let email=document.getElementById('C-email').value;
    let mobile= document.getElementById('C-mobile').value;
    let id= document.getElementById('id').value;
--
+
+   let res = await axios.post('/update-customer', {name:name, email:email, mobile:mobile, id:id});
 
     if(res.status===201 && res.data['status']==='success'){
       successToast(res.data['message']);
