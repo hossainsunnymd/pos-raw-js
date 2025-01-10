@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\TokenVarificationMiddleware;
@@ -31,6 +32,7 @@ Route::get('/profile',[UserController::class,'profilePage'])->middleware(TokenVa
 Route::get('/category-page',[CategoryController::class,'categoryPage'])->middleware(TokenVarificationMiddleware::class);
 Route::get('/customer-page',[CustomerController::class,'customerPage'])->middleware(TokenVarificationMiddleware::class);
 Route::get('/product-page',[ProductController::class,'productPage'])->middleware(TokenVarificationMiddleware::class);
+Route::get('/sale-page',[InvoiceController::class,'salePage'])->middleware(TokenVarificationMiddleware::class);
 
 
 // category

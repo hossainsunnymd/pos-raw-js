@@ -17,7 +17,7 @@
 
 </head>
 
-<body>
+<body class="bg-[#fffefe]">
     <section>
         <header>
             <!--Nav-->
@@ -115,10 +115,10 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#"
+                        <a href="/sale-page"
                             class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-pink-500">
 
-                            <span class="flex-1 ms-3 whitespace-nowrap">Users</span>
+                            <span class="flex-1 ms-3 whitespace-nowrap">Create Sale</span>
                         </a>
                     </li>
                     <li>
