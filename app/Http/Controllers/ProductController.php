@@ -72,7 +72,7 @@ class ProductController extends Controller
 
             $data['image']=$filePath;
 
-            $file->storeAs('uploads',$filePath,'public');
+            $file->storeAs('uploads',$img_name,'public');
 
             $oldFile=$request->input('file_path');
             File::delete($oldFile);

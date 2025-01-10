@@ -30,24 +30,24 @@
                         </select>
                     </div>
                     <div class="col-span-2">
-                        <label for="P-name" class="block mb-2 text-sm font-medium "> Name</label>
-                        <input type="text" id="P-name"
+                        <label for="product-name" class="block mb-2 text-sm font-medium "> Name</label>
+                        <input type="text" id="product-name"
                             class="border text-sm rounded-lg block w-full p-2.5">
                     </div>
 
                     <div class="col-span-2">
-                        <label for="P-price" class="block mb-2 text-sm font-medium ">price</label>
-                        <input type="text" id="P-price"
+                        <label for="product-price" class="block mb-2 text-sm font-medium ">price</label>
+                        <input type="text" id="product-price"
                             class="border text-sm rounded-lg block w-full p-2.5">
                     </div>
                     <div class="col-span-2">
-                        <label for="P-unit" class="block mb-2 text-sm font-medium ">Unit</label>
-                        <input type="text" id="P-unit"
+                        <label for="product-unit" class="block mb-2 text-sm font-medium ">Unit</label>
+                        <input type="text" id="product-unit"
                             class="border text-sm rounded-lg block w-full p-2.5">
                     </div>
                     <div class="col-span-2">
-                        <label for="P-image" class="block mb-2 text-sm font-medium "> image</label>
-                        <input oninput="newImg.src=window.URL.createObjectURL(this.files[0])" type="file" id="P-image"
+                        <label for="product-image" class="block mb-2 text-sm font-medium "> image</label>
+                        <input oninput="newImg.src=window.URL.createObjectURL(this.files[0])" type="file" id="product-image"
                             class="border text-sm rounded-lg block w-full p-2.5">
                     </div>
                     <img src="" id="newImg" class="w-[100px]">
@@ -63,9 +63,9 @@
 
 
 <script>
-    getCategory();
+    fillDropDown();
 
-    async function getCategory() {
+    async function fillDropDown() {
     let listCategory= await axios.get('list-category');
     listCategory.data.forEach(category => {
      document.getElementById('category').innerHTML += `<option value="${category['id']}">${category['name']}</option>`;
@@ -75,10 +75,10 @@
 
   async function createProduct() {
 
-    let name = document.getElementById('P-name').value;
-    let price = document.getElementById('P-price').value;
-    let unit = document.getElementById('P-unit').value;
-    let image = document.getElementById('P-image').files[0];
+    let name = document.getElementById('product-name').value;
+    let price = document.getElementById('product-price').value;
+    let unit = document.getElementById('product-unit').value;
+    let image = document.getElementById('product-image').files[0];
     let category_id = document.getElementById('category').value;
 
     let formData = new FormData();
@@ -93,7 +93,6 @@
         'Content-Type': 'multipart/form-data'
       }
     });
-    console.log(res);
     if(res.status===201 && res.data['status']==='success'){
       successToast(res.data['message']);
       await getProduct();

@@ -28,6 +28,9 @@
       </div>
     </div>
   </div>
+
+
+
   <script>
     function showProductDeleteModal(id) {
       let modal = document.getElementById('deleteModal');

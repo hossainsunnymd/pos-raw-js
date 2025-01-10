@@ -1,4 +1,4 @@
-<button id="update-modal" data-modal-target="update-product-modal" data-modal-toggle="update-product-modal"></button>
+<button id="modal-button" type="button" data-modal-target="update-product-modal" data-modal-toggle="update-product-modal">update</button>
 <!-- Main modal -->
 <div id="update-product-modal" tabindex="-1" aria-hidden="true"
     class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
@@ -22,39 +22,44 @@
                 </button>
             </div>
             <!-- Modal body -->
-            <form class="p-4 md:p-5" id="product-form">
+            <form class="p-4 md:p-5" id="update-form">
                 <div class="grid gap-4 mb-4 grid-cols-2">
                     <div class="col-span-2">
-                        <select name="category" id="category" class="border text-sm rounded-lg block w-full p-2.5">
+                        <select name="category" id="update-category"
+                            class="border text-sm rounded-lg block w-full p-2.5">
                             <option value="" selected>select category</option>
                         </select>
-                    </div>
-                    <div class="col-span-2">
-                        <label for="P-image" class="block mb-2 text-sm font-medium "> image</label>
-                        <input type="file" id="P-image"
-                            class="border text-sm rounded-lg block w-full p-2.5">
                     </div>
 
                     <div class="col-span-2">
                         <label for="P-name" class="block mb-2 text-sm font-medium "> Name</label>
-                        <input type="text" id="P-name"
-                            class="border text-sm rounded-lg block w-full p-2.5">
+                        <input type="text" id="P-name" class="border text-sm rounded-lg block w-full p-2.5">
                     </div>
 
                     <div class="col-span-2">
                         <label for="P-price" class="block mb-2 text-sm font-medium ">price</label>
-                        <input type="text" id="P-price"
-                            class="border text-sm rounded-lg block w-full p-2.5">
+                        <input type="text" id="P-price" class="border text-sm rounded-lg block w-full p-2.5">
                     </div>
                     <div class="col-span-2">
                         <label for="P-unit" class="block mb-2 text-sm font-medium ">Unit</label>
-                        <input type="text" id="P-unit"
-                            class="border text-sm rounded-lg block w-full p-2.5">
+                        <input type="text" id="P-unit" class="border text-sm rounded-lg block w-full p-2.5">
                     </div>
+
+                    <div class="col-span-2">
+                        <label for="P-image" class="block mb-2 text-sm font-medium "> image</label>
+                        <input oninput="oldImg.src=window.URL.createObjectURL(this.files[0])" type="file"
+                            id="P-image" class="border text-sm rounded-lg block w-full p-2.5">
+                    </div>
+                    <img src="" id="oldImg" class="w-[100px]">
+
+                     <div>
+                        <input type="text" id="img-url">
+                        <input type="text" id="product-id">
+                     </div>
                 </div>
-                <button onclick="createProduct()" data-modal-toggle="update-product-modal" type="button"
+                <button onclick="updateProduct()" data-modal-toggle="update-product-modal" type="button"
                     class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                    Create
+                    Update
                 </button>
             </form>
         </div>
@@ -63,54 +68,69 @@
 
 
 <script>
+    fillUpdateCategoryDropDown();
 
-        async function showCategoryUpdateModal(id) {
+    async function fillUpdateCategoryDropDown() {
+        let listCategory = await axios.get('list-category');
+        listCategory.data.forEach(category => {
+            document.getElementById('update-category').innerHTML +=
+                `<option value="${category['id']}">${category['name']}</option>`;
 
-       let res = await axios.get(`/category-by-id?id=${id}`);
-
-       document.getElementById('category_name').value=res.data['name'];
-       document.getElementById('category').value=res.data['id'];
-       document.getElementById('update-Modal').click();
-   }
-
-
-    getCategory();
-
-    async function getCategory() {
-    let listCategory= await axios.get('list-category');
-    listCategory.data.forEach(category => {
-     document.getElementById('category').innerHTML += `<option value="${category['id']}">${category['name']}</option>`;
-
-    })
-   }
-
-  async function createProduct() {
-
-    let name = document.getElementById('P-name').value;
-    let price = document.getElementById('P-price').value;
-    let unit = document.getElementById('P-unit').value;
-    let image = document.getElementById('P-image').files[0];
-    let category_id = document.getElementById('category').value;
-
-    let formData = new FormData();
-    formData.append('name', name);
-    formData.append('price', price);
-    formData.append('unit', unit);
-    formData.append('image', image);
-    formData.append('category_id', category_id);
-
-    let res = await axios.post('/create-product',formData,{
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      }
-    });
-    console.log(res);
-    if(res.status===201 && res.data['status']==='success'){
-      successToast(res.data['message']);
-      await getProduct();
-      document.getElementById('product-form').reset();
-    }else{
-      errorToast(res.data['message']);
+        })
     }
-  }
+
+    async function showProductUpdateModal(id) {
+
+        let res = await axios.get(`/product-by-id?id=${id}`);
+        document.getElementById('oldImg').src = res.data['image'];
+        document.getElementById('img-url').value = res.data['image'];
+        document.getElementById('product-id').value = res.data['id'];
+
+
+        document.getElementById('P-price').value = res.data['price'];
+        document.getElementById('P-name').value = res.data['name'];
+        document.getElementById('P-unit').value = res.data['unit'];
+        document.getElementById('update-category').value = res.data['category_id'];
+        document.getElementById('modal-button').click();
+    }
+
+
+
+
+    async function updateProduct() {
+
+
+        let filePath=document.getElementById('img-url').value;
+        let id= document.getElementById('product-id').value;
+
+
+       let price= document.getElementById('P-price').value;
+       let name=  document.getElementById('P-name').value;
+       let unit = document.getElementById('P-unit').value;
+       let image = document.getElementById('P-image').files[0];
+       let category_id = document.getElementById('update-category').value;
+
+        let formData = new FormData();
+        formData.append('name', name);
+        formData.append('price', price);
+        formData.append('unit', unit);
+        formData.append('image', image);
+        formData.append('category_id', category_id);
+        formData.append('id',id);
+        formData.append('file_path',filePath);
+
+        let res = await axios.post('/update-product', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        });
+        console.log(res);
+        if (res.status === 200 && res.data['status'] === 'success') {
+            successToast(res.data['message']);
+            await getProduct();
+            document.getElementById('update-form').reset();
+        } else {
+            errorToast(res.data['message']);
+        }
+    }
 </script>

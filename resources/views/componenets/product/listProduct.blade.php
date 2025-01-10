@@ -8,8 +8,9 @@
                 <button data-modal-target="create-product-modal" data-modal-toggle="create-product-modal"
                     class="  text-white bg-green-500 hover:bg-green-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                     type="button">
-                    Create Customer
+                    Create Product
                 </button>
+
 
 
             </div>
@@ -73,7 +74,7 @@
                  <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left text-blueGray-700 ">${product['price']}</td>
                  <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left text-blueGray-700 ">${product['unit']}</td>
                  <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left text-blueGray-700 ">
-                    <button onclick="showCustomerUpdateModal(${product['id']})"  class="bg-blue-500 px-4 py-2 text-white">Edit</button>
+                    <button onclick="showProductUpdateModal(${product['id']})"  class="bg-blue-500 px-4 py-2 text-white">Edit</button>
                     <button onclick="showProductDeleteModal(${product['id']})" class="bg-red-500 px-4 py-2 text-white">Delete</button>
                 </td>
                 </tr>`
