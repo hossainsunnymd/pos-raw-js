@@ -53,8 +53,8 @@
                     <img src="" id="oldImg" class="w-[100px]">
 
                      <div>
-                        <input type="text" id="img-url">
-                        <input type="text" id="product-id">
+                        <input type="text" hidden id="img-url">
+                        <input type="text" hidden id="product-id">
                      </div>
                 </div>
                 <button onclick="updateProduct()" data-modal-toggle="update-product-modal" type="button"
