@@ -38,13 +38,15 @@ class CategoryController extends Controller
         try{
             $userId=$request->header('id');
             $id=$request->input('id');
+            // dd($id);
             Category::where('id','=',$id)->where('user_id','=',$userId)->update([
                 'name'=>$request->name
             ]);
             return response()->json([
                 'status' => "success",
-                'message' => "Category Updated Successfully"
-            ],201);
+                'message' => "Category Updated Successfully",
+
+            ],200);
         }catch(Exception $e){
             return response()->json([
                 'status' => "failed",

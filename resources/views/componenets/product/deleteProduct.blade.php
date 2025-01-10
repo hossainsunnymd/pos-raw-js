@@ -15,13 +15,13 @@
                 <h3 class="text-base font-semibold text-gray-900" id="modal-title">Are You sure you want to delete this category?</h3>
                 <div class="mt-2">
                   <p class="text-sm text-gray-500">Once you delete this category, you will not be able to recover it.</p>
-                  <input type="text" hidden id="category_id">
+                  <input type="text" hidden id="product_id">
                 </div>
               </div>
             </div>
           </div>
           <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-            <button type="button" onclick="deleteCategory()" class="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto">Delete</button>
+            <button type="button" onclick="deleteProduct()" class="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto">Delete</button>
             <button onclick="hideDeleteModal()" type="button" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">Cancel</button>
           </div>
         </div>
@@ -29,10 +29,10 @@
     </div>
   </div>
   <script>
-    function showCategoryDeleteModal(id) {
+    function showProductDeleteModal(id) {
       let modal = document.getElementById('deleteModal');
       modal.classList.remove('hidden');
-      document.getElementById('category_id').value=id;
+      document.getElementById('product_id').value=id;
     }
 
     function hideDeleteModal() {
@@ -40,14 +40,14 @@
       modal.classList.add('hidden');
     }
 
-  async function deleteCategory() {
-      const id=document.getElementById('category_id').value;
-       let res= await axios.post('/delete-category', {id:id});
+  async function deleteProduct() {
+      const id=document.getElementById('product_id').value;
+       let res= await axios.post('/delete-product', {id:id});
        console.log(id);
        if(res.status===200 && res.data['status']==='success'){
         successToast(res.data['message']);
         hideDeleteModal();
-        await getCategory();
+        await getProduct();
        }else{
         errorToast(res.data['message']);
        }

@@ -100,7 +100,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#"
+                        <a href="/customer-page"
                             class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-pink-500">
 
                             <span class="flex-1 ms-3 whitespace-nowrap">Customer</span>
@@ -122,7 +122,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#"
+                        <a href="/product-page"
                             class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-pink-500">
 
                             <span class="flex-1 ms-3 whitespace-nowrap">Products</span>
