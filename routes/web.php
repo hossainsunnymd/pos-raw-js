@@ -33,6 +33,7 @@ Route::get('/category-page',[CategoryController::class,'categoryPage'])->middlew
 Route::get('/customer-page',[CustomerController::class,'customerPage'])->middleware(TokenVarificationMiddleware::class);
 Route::get('/product-page',[ProductController::class,'productPage'])->middleware(TokenVarificationMiddleware::class);
 Route::get('/sale-page',[InvoiceController::class,'salePage'])->middleware(TokenVarificationMiddleware::class);
+Route::get('/invoice-page',[InvoiceController::class,'invoicePage'])->middleware(TokenVarificationMiddleware::class);
 
 
 // category
@@ -58,4 +59,11 @@ Route::get('/list-product',[ProductController::class,'listProduct'])->middleware
 Route::post('/update-product',[ProductController::class,'updateProduct'])->middleware(TokenVarificationMiddleware::class);
 Route::post('/delete-product',[ProductController::class,'deleteProduct'])->middleware(TokenVarificationMiddleware::class);
 Route::get('/product-by-id',[ProductController::class,'productById'])->middleware(TokenVarificationMiddleware::class);
+
+
+//invoice
+Route::post('/create-invoice',[InvoiceController::class,'createInvoice'])->middleware(TokenVarificationMiddleware::class);
+Route::get('/list-invoice',[InvoiceController::class,'listInvoice'])->middleware(TokenVarificationMiddleware::class);
+Route::get('/invoice-detail',[InvoiceController::class,'invoiceDetail'])->middleware(TokenVarificationMiddleware::class);
+Route::post('/delete-invoice',[InvoiceController::class,'deleteInvoice'])->middleware(TokenVarificationMiddleware::class);
 

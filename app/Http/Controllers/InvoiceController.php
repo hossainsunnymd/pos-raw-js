@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\DB;
 class InvoiceController extends Controller
 {
     public function invoicePage(){
-        return view('pages.dashboard.invoice-page.');
+        return view('pages.dashboard.invoice-page');
     }
 
     public function salePage(){
@@ -23,6 +23,7 @@ class InvoiceController extends Controller
 
         DB::beginTransaction();
         try{
+
             $userId=$request->header('id');
             $data=[
                'total'=>$request->total,
@@ -30,7 +31,7 @@ class InvoiceController extends Controller
                'vat'=>$request->vat,
                'payable'=>$request->payable ,
                'user_id'=>$userId,
-               'customer_id'=>$request->customer_id,
+               'customer_id'=>$request->cus_id,
             ];
 
             $invoice=Invoice::create($data);
@@ -41,9 +42,9 @@ class InvoiceController extends Controller
                 InvoiceProduct::create([
                     'user_id'=>$userId,
                     'invoice_id'=>$invoice->id,
-                    'product_id'=>$product['id'],
+                    'product_id'=>$product['p_id'],
                     'qty'=>$product['qty'],
-                    'sale_price'=>$product['sale_price'],
+                    'sales_price'=>$product['total'],
                 ]);
             }
 
@@ -59,22 +60,22 @@ class InvoiceController extends Controller
 
     public function listInvoice(Request $request){
         $userId=$request->header('id');
-        return Invoice::where('user_id','=',$userId)->get();
+        return Invoice::where('user_id','=',$userId)->with('customer')->get();
     }
 
-    public function invioceDetails(Request $request){
+    public function invoiceDetail(Request $request){
 
         $userId=$request->header('id');
-        $customerDetails=Customer::where('user_id','=',$userId)->where('id','=',$request->input('cus_id'))->first();
-        $invoiceTotal=Invoice::where('user_id','=',$userId)->where('id','=',$request->input('inv_id'))->first();
-        $invoiceProduct=InvoiceProduct::where('invoice_id','=',$request->input('inv_id'))
-            ->where('user_id','=',$userId)->with('product')
-            ->get();
-        return [
-            'customer'=>$customerDetails,
-            'invoice'=>$invoiceTotal,
-            'product'=>$invoiceProduct,
-        ];
+        $customer_detail=Customer::where('id','=',$request->cus_id)->where('user_id','=',$userId)->first();
+        $invoice_detail=Invoice::where('id','=',$request->inv_id)->where('user_id','=',$userId)->first();
+        $invoice_products=InvoiceProduct::where('invoice_id','=',$request->inv_id)->where('user_id','=',$userId)
+            ->with('product')->get();
+
+        return array(
+            'customer_detail'=>$customer_detail,
+            'invoice_detail'=>$invoice_detail,
+            'invoice_products'=>$invoice_products
+        );
 
     }
 

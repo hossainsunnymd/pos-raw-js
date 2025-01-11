@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.8/axios.min.js" integrity="sha512-v8+bPcpk4Sj7CKB11+gK/FnsbgQ15jTwZamnBf/xDmiQDcgOIYufBo6Acu1y30vrk8gg5su4x0CG3zfPaq5Fcg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -17,7 +18,7 @@
 
 </head>
 
-<body class="bg-[#fffefe]">
+<body class="bg-[#fffefe] relative">
     <section>
         <header>
             <!--Nav-->
@@ -129,6 +130,13 @@
                         </a>
                     </li>
                     <li>
+                        <a href="/invoice-page"
+                            class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-pink-500">
+
+                            <span class="flex-1 ms-3 whitespace-nowrap">Invoice</span>
+                        </a>
+                    </li>
+                    <li>
                         <a href="{{url('/login')}}"
                             class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-pink-500">
 
@@ -148,6 +156,7 @@
     </section>
 
         @yield('contents')
+
     <script>
         function toggleDD() {
             const dropdown = document.getElementById('myDropdown');

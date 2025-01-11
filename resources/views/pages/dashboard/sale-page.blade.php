@@ -15,7 +15,7 @@
                 <h2 class="text-lg font-bold mb-4">Bill To:</h2>
                 <div class="text-gray-700 mb-2">Name:<span id="name"></span> </div>
                 <div class="text-gray-700">Email: <span id="email"></span></div>
-                <div class="text-gray-700">User Id: <span id="user_id"></span></div>
+                <div class="text-gray-700">User Id: <span id="cus_id"></span></div>
             </div>
             <table class="w-full">
                 <thead>
@@ -32,11 +32,26 @@
 
                 </tbody>
             </table>
+            <div class="mt-6">
+                <p>Total: <span id="total"></span></p>
+                <p>Payable: <span id="payable"></span></p>
+                <p>Vat: <span id="vat"></span></p>
+                <span id="">Vat(%):</span>
+                <input type="number" step=".25" onkeydown="return false" value="0" min="0" onchange="calculateTotal()" id="vatP" class="h-6 w-20"/>
+                <p>Discount: <span id="discount"></span></p>
+                <span class="">Discount(%):</span>
+                <input type="number" step=".25" onkeydown="return false" value="0" min="0" onchange="calculateTotal()" id="discountP" class="h-6 w-20"/>
+                <p>
+                    <button onclick="createInvoice()" class="mt-10 bg-green-500 hover:bg-green-700 text-white font-bold p-1 rounded">Confirm</button>
+                </p>
+
+            </div>
         </div>
+
 
         <div class="bg-white border rounded-lg shadow-lg px-6 py-8 h-[600px] w-[600px]">
             <div class="flex justify-between">
-            <h1>Customer</h1>
+            <h1>Product</h1>
             <h1>Pick</h1>
             </div>
             <hr class="mt-5">
@@ -137,6 +152,7 @@
      function removeProduct(i){
          listProduct.splice(i,1);
          ShowInvoiceItem();
+         calculateTotal();
      }
 
 
@@ -161,7 +177,7 @@
     function addCustomer(id,name,email){
         document.getElementById('name').innerHTML = name;
         document.getElementById('email').innerHTML = email;
-        document.getElementById('user_id').innerHTML = id;
+        document.getElementById('cus_id').innerHTML = id;
 
     }
 
@@ -203,8 +219,62 @@
        let item={p_id,name,price,qty,total};
        listProduct.push(item);
        ShowInvoiceItem();
-       console.log(listProduct);
+       calculateTotal();
 
+
+    }
+
+
+    function calculateTotal(){
+        let total=0;
+        let vatP=(parseFloat(document.getElementById('vatP').value));
+        let vat=0;
+        let payable=0;
+        let discount=0;
+        let discountParcent=(parseFloat(document.getElementById('discountP').value));
+
+        listProduct.forEach(product => {
+            total+=parseFloat(product['total']);
+        })
+
+        if(discountParcent===0){
+            vat=parseFloat((total*vatP)/100).toFixed(2);
+        }else {
+            discount=((total*discountParcent)/100).toFixed(2);
+            total=(total-discount).toFixed(2);
+            vat=((total*vatP)/100).toFixed(2);
+        }
+
+        payable=(parseFloat(total)+parseFloat(vat)).toFixed(2);
+
+        document.getElementById('total').innerText=total;
+        document.getElementById('vat').innerText=vat;
+        document.getElementById('payable').innerText=payable;
+        document.getElementById('discount').innerText=discount;
+    }
+
+
+    async function createInvoice() {
+        let cus_id = document.getElementById('cus_id').innerHTML;
+        let total = document.getElementById('total').innerText;
+        let vat = document.getElementById('vat').innerText;
+        let payable = document.getElementById('payable').innerText;
+        let discount = document.getElementById('discount').innerText;
+
+
+        if(listProduct.length==0){
+            errorToast("Please add product to invoice");
+
+        }else if(cus_id==""){
+            errorToast("Please select customer");
+        }
+        else{
+            let res = await axios.post('/create-invoice', {cus_id:cus_id, total:total, vat:vat, payable:payable, discount:discount,products:listProduct});
+            if(res.data==1){
+                successToast("Invoice created successfully");
+               window.location.href="/invoice-page";
+            }
+        }
     }
 
 
