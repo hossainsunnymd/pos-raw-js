@@ -44,7 +44,10 @@
 
         async function deleteInvoice() {
         let id=document.getElementById('inv_id').value;
+
+        NProgress.start();
         let res = await axios.post('/delete-invoice',{id:id});
+        NProgress.done();
 
         if(res.data===1){
             successToast('Invoice Deleted Successfully');

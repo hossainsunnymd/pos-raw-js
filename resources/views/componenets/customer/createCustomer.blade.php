@@ -60,7 +60,10 @@
     let name = document.getElementById('customer_name').value;
     let email = document.getElementById('customer_email').value;
     let mobile = document.getElementById('customer_mobile').value;
+
     let res = await axios.post('/create-customer', {name:name, email:email, mobile:mobile});
+    console.log(res.data);
+
     if(res.status===201 && res.data['status']==='success'){
       successToast(res.data['message']);
       await getCustomer();

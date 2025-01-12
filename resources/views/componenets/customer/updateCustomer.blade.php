@@ -54,8 +54,12 @@ class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 
 
 <script>
 async function showCustomerUpdateModal(id) {
+    NProgress.start();
 
     let res = await axios.get(`/customer-by-id?id=${id}`);
+
+    NProgress.done();
+
     document.getElementById('C-name').value=res.data['name'];
     document.getElementById('C-email').value=res.data['email'];
     document.getElementById('C-mobile').value=res.data['mobile'];
@@ -68,9 +72,9 @@ async function updateCustomer(){
    let email=document.getElementById('C-email').value;
    let mobile= document.getElementById('C-mobile').value;
    let id= document.getElementById('id').value;
-
+    NProgress.start();
    let res = await axios.post('/update-customer', {name:name, email:email, mobile:mobile, id:id});
-
+    NProgress.done();
     if(res.status===201 && res.data['status']==='success'){
       successToast(res.data['message']);
       await getCustomer();

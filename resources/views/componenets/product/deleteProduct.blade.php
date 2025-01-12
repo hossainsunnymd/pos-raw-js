@@ -45,8 +45,9 @@
 
   async function deleteProduct() {
       const id=document.getElementById('product_id').value;
+      NProgress.start();
        let res= await axios.post('/delete-product', {id:id});
-       console.log(id);
+       NProgress.done();
        if(res.status===200 && res.data['status']==='success'){
         successToast(res.data['message']);
         hideDeleteModal();

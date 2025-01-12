@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
@@ -66,4 +67,9 @@ Route::post('/create-invoice',[InvoiceController::class,'createInvoice'])->middl
 Route::get('/list-invoice',[InvoiceController::class,'listInvoice'])->middleware(TokenVarificationMiddleware::class);
 Route::get('/invoice-detail',[InvoiceController::class,'invoiceDetail'])->middleware(TokenVarificationMiddleware::class);
 Route::post('/delete-invoice',[InvoiceController::class,'deleteInvoice'])->middleware(TokenVarificationMiddleware::class);
+
+
+
+//summary and report
+Route::get('/summary',[DashboardController::class,'summary'])->middleware(TokenVarificationMiddleware::class);
 

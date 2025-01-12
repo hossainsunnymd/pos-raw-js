@@ -41,9 +41,10 @@
     }
 
   async function deleteCustomer() {
-      const id=document.getElementById('customer_id').value;
+       const id=document.getElementById('customer_id').value;
+       NProgress.start();
        let res= await axios.post('/delete-customer', {id:id});
-       console.log(id);
+       NProgress.done();
        if(res.status===200 && res.data['status']==='success'){
         successToast(res.data['message']);
         hideDeleteModal();

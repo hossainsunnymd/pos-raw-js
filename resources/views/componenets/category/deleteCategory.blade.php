@@ -41,10 +41,12 @@
     }
 
   async function deleteCategory() {
-      const id=document.getElementById('category_id').value;
-       let res= await axios.post('/delete-category', {id:id});
-       console.log(id);
-       if(res.status===200 && res.data['status']==='success'){
+      let id=document.getElementById('category_id').value;
+        NProgress.start();
+        let res= await axios.post('/delete-category', {id:id});
+        NProgress.done();
+        console.log(res.data);
+        if(res.status===200 && res.data['status']==='success'){
         successToast(res.data['message']);
         hideDeleteModal();
         await getCategory();

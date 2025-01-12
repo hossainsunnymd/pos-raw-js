@@ -41,12 +41,14 @@
       if (fname == "" || lname == "" || email == "" || number == "" || password == "") {
           errorToast("Please enter all details");
       } else {
+          NProgress.start();
           const res = await axios.post('/update-user', {
               firstName: fname,
               lastName: lname,
               mobile: number,
               password: password
           });
+          NProgress.done();
           if (res.status === 200 && res.data['status'] === "success") {
               successToast(res.data['message']);
           } else {

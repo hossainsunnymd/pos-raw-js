@@ -56,7 +56,6 @@
 <script>
     getCustomer();
     async function getCustomer() {
-
         let res = await axios.get('/list-customer');
         document.getElementById('customerList').innerHTML = "";
         let row = "";

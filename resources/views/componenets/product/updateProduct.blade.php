@@ -71,7 +71,9 @@
     fillUpdateCategoryDropDown();
 
     async function fillUpdateCategoryDropDown() {
+        NProgress.start();
         let listCategory = await axios.get('list-category');
+        NProgress.done();
         listCategory.data.forEach(category => {
             document.getElementById('update-category').innerHTML +=
                 `<option value="${category['id']}">${category['name']}</option>`;
@@ -80,8 +82,10 @@
     }
 
     async function showProductUpdateModal(id) {
-
+        NProgress.start();
         let res = await axios.get(`/product-by-id?id=${id}`);
+        NProgress.done();
+
         document.getElementById('oldImg').src = res.data['image'];
         document.getElementById('img-url').value = res.data['image'];
         document.getElementById('product-id').value = res.data['id'];

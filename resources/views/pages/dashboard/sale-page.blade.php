@@ -3,85 +3,91 @@
 @section('contents')
 
 <div class="max-w-[1400px] mx-auto flex gap-10 p-10  h-screen">
-        <div class="bg-white border rounded-lg shadow-lg p-3 h-[600px] w-[600px]">
-            <div class="flex justify-between">
-                <h1 class="text-sm font-bold">Invoice</h1>
-                <div class="text-gray-700">
-                    <div>Date: 01/05/2023</div>
-                    <div>Invoice #: INV12345</div>
+        <div>
+            <div class="bg-white border rounded-lg shadow-lg p-3 min-h-[500px] w-[500px]">
+
+                <div class="flex justify-between">
+                    <h1 class="text-sm font-bold">Invoice</h1>
+                    <div class="text-gray-700">
+                        <div>Date: {{ date('Y-m-d')}} </div>
+                    </div>
+                </div>
+                <div>
+                    <h2 class="text-lg font-bold mb-4">Bill To:</h2>
+                    <div class="text-gray-700 mb-2">Name:<span id="name"></span> </div>
+                    <div class="text-gray-700">Email: <span id="email"></span></div>
+                    <div class="text-gray-700">User Id: <span id="cus_id"></span></div>
+                </div>
+                <table class="w-full">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Name</th>
+                            <th>Price</th>
+                            <th>Qty</th>
+                            <th>Total</th>
+                            <th>Remove</th>
+                        </tr>
+                    </thead>
+                    <tbody id="invoiceList">
+
+                    </tbody>
+                </table>
+                <div class="mt-6">
+                    <p>Total: <span id="total"></span></p>
+                    <p>Payable: <span id="payable"></span></p>
+                    <p>Vat: <span id="vat"></span></p>
+                    <span id="">Vat(%):</span>
+                    <input type="number" step=".25" onkeydown="return false" value="0" min="0" onchange="calculateTotal()" id="vatP" class="h-6 w-20"/>
+                    <p>Discount: <span id="discount"></span></p>
+                    <span class="">Discount(%):</span>
+                    <input type="number" step=".25" onkeydown="return false" value="0" min="0" onchange="calculateTotal()" id="discountP" class="h-6 w-20"/>
+                    <p>
+                        <button onclick="createInvoice()" class="mt-10 bg-green-500 hover:bg-green-700 text-white font-bold p-1 rounded">Confirm</button>
+                    </p>
+
                 </div>
             </div>
-            <div>
-                <h2 class="text-lg font-bold mb-4">Bill To:</h2>
-                <div class="text-gray-700 mb-2">Name:<span id="name"></span> </div>
-                <div class="text-gray-700">Email: <span id="email"></span></div>
-                <div class="text-gray-700">User Id: <span id="cus_id"></span></div>
-            </div>
-            <table class="w-full">
-                <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>Name</th>
-                        <th>Price</th>
-                        <th>Qty</th>
-                        <th>Total</th>
-                        <th>Remove</th>
-                    </tr>
-                </thead>
-                <tbody id="invoiceList">
 
-                </tbody>
-            </table>
-            <div class="mt-6">
-                <p>Total: <span id="total"></span></p>
-                <p>Payable: <span id="payable"></span></p>
-                <p>Vat: <span id="vat"></span></p>
-                <span id="">Vat(%):</span>
-                <input type="number" step=".25" onkeydown="return false" value="0" min="0" onchange="calculateTotal()" id="vatP" class="h-6 w-20"/>
-                <p>Discount: <span id="discount"></span></p>
-                <span class="">Discount(%):</span>
-                <input type="number" step=".25" onkeydown="return false" value="0" min="0" onchange="calculateTotal()" id="discountP" class="h-6 w-20"/>
-                <p>
-                    <button onclick="createInvoice()" class="mt-10 bg-green-500 hover:bg-green-700 text-white font-bold p-1 rounded">Confirm</button>
-                </p>
-
-            </div>
         </div>
 
 
-        <div class="bg-white border rounded-lg shadow-lg px-6 py-8 h-[600px] w-[600px]">
+        <div>
+            <div class="bg-white border rounded-lg shadow-lg px-6 py-8 min-h-[500px] min-w-[500px]">
+                <div class="flex justify-between">
+                <h1>Product List</h1>
+                <h1>Pick</h1>
+                </div>
+                <hr class="mt-5">
+                 <table class="w-full mb-8 border-spacing-4">
+                     <tbody id="productList">
+
+                     </tbody>
+                 </table>
+             </div>
+        </div>
+
+
+     <div>
+        <div class="bg-white border rounded-lg shadow-lg px-6 py-8 min-h-[500px] min-w-[500px]">
             <div class="flex justify-between">
-            <h1>Product</h1>
+            <h1>Customer List</h1>
             <h1>Pick</h1>
             </div>
             <hr class="mt-5">
              <table class="w-full mb-8 border-spacing-4">
-                 <tbody id="productList">
+                 <tbody id="ListCustomer">
 
                  </tbody>
              </table>
          </div>
-
-
-        <div class="bg-white border rounded-lg shadow-lg px-6 py-8 h-[600px] w-[600px]">
-           <div class="flex justify-between">
-           <h1>Customer</h1>
-           <h1>Pick</h1>
-           </div>
-           <hr class="mt-5">
-            <table class="w-full mb-8 border-spacing-4">
-                <tbody id="customerList">
-
-                </tbody>
-            </table>
-        </div>
+     </div>
 
 
 
 
 <!-- add product toggle -->
-<button id="product-modal" data-modal-target="add-product-modal" data-modal-toggle="add-product-modal" type="button">
-  </button>
+
 
   <!-- Main modal -->
   <div id="add-product-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
@@ -113,7 +119,10 @@
                         <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"> Qty</label>
                         <input type="text" id="p-qty" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"  />
                     </div>
+                    <div class="flex justify-between">
                     <button type="button" onclick="add()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Add</button>
+                    <button class="bg-red-500 hover:bg-red-600 text-sm rounded-md px-4 text-white" id="product-modal" data-modal-target="add-product-modal" data-modal-toggle="add-product-modal" type="button">Close</button>
+                    </div>
                   </form>
               </div>
           </div>
@@ -143,7 +152,7 @@
                 <td class="text-center">${product['price']}</td>
                 <td class="text-center">${product['qty']}</td>
                 <td class="text-center">${product['total']}</td>
-                <td class="text-center"> <button class="text-red-500 px-1 text-white" onclick="removeProduct(${i})">Remove</button> </td>
+                <td class="text-center"> <button class="bg-red-500 hover:bg-red-600 text-sm rounded-md px-1 text-white" onclick="removeProduct(${i})">Remove</button> </td>
              </tr>
                 `
          })
@@ -158,14 +167,14 @@
 
     async function customerList(){
         let res = await axios.get('/list-customer');
-        let customerList =  document.getElementById('customerList');
+        let customerList =  document.getElementById('ListCustomer');
         let row="";
         res.data.forEach(customer => {
 
             row+=`
              <tr>
                 <td class=" px-8 py-2">${customer['name']}</td>
-                <td class="px-4 py-2"> <button onclick="addCustomer('${customer['id']}','${customer['name']}','${customer['email']}')" class="text-green-500 px-1 text-white">Add</button></td>
+                <td class="px-4 py-2"> <button onclick="addCustomer('${customer['id']}','${customer['name']}','${customer['email']}')" class="bg-green-500 hover:bg-green-600 rounded-md px-1 text-white">Add</button></td>
              </tr>
                 `
         });
@@ -190,7 +199,7 @@
             row+=`
              <tr>
                 <td class=" px-8 py-2">${product['name']}</td>
-                <td class="px-4 py-2"> <button  onclick="addProduct('${product['id']}','${product['name']}','${product['price']}')" class="text-green-500 px-1 text-white">Add</button></td>
+                <td class="px-4 py-2"> <button  onclick="addProduct('${product['id']}','${product['name']}','${product['price']}')" class="bg-green-500 hover:bg-green-600 rounded-md px-1 text-white">Add</button></td>
              </tr>
                 `
         });

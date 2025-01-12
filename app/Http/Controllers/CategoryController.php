@@ -56,9 +56,9 @@ class CategoryController extends Controller
     }
 
     public function deleteCategory(Request $request){
-        try{
-            $userId=$request->header('id');
+        $userId=$request->header('id');
             $id=$request->input('id');
+        try{
             Category::where('id','=',$id)->where('user_id','=',$userId)->delete();
             return response()->json([
                 'status' => "success",
@@ -68,7 +68,8 @@ class CategoryController extends Controller
         }catch(Exception $e){
             return response()->json([
                 'status' => "failed",
-                'message' => "Category Deletion Failed"
+                'message' => "Category Deletion Failed",
+                'id'=>$id
             ]);
         }
     }

@@ -45,9 +45,9 @@
 
 <script>
  async function showCategoryUpdateModal(id) {
-
+        NProgress.start();
         let res = await axios.get(`/category-by-id?id=${id}`);
-        console.log(res.data.id);
+        NProgress.done();
         document.getElementById('category_name').value=res.data['name'];
         document.getElementById('category').value=res.data['id'];
         document.getElementById('update-Modal').click();

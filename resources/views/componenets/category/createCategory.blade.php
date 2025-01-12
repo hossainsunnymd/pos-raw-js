@@ -45,7 +45,9 @@
 
   async function createCategory() {
     let name = document.getElementById('name').value;
+    NProgress.start();
     let res = await axios.post('/create-category', {name:name});
+    NProgress.done();
     if(res.status===201 && res.data['status']==='success'){
       successToast(res.data['message']);
       document.getElementById('create-catagory-modal').click();

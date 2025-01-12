@@ -14,8 +14,8 @@ class CustomerController extends Controller
     }
 
     public function createCustomer(Request $request){
-       try{
         $userId=$request->header('id');
+       try{
         Customer::create([
             'name'=>$request->name,
             'user_id'=>$userId,
@@ -26,10 +26,12 @@ class CustomerController extends Controller
             'status' => "success",
             'message' => "Customer Created Successfully"
         ],201);
+
        }catch(Exception $e){
         return response()->json([
             'status' => "failed",
-            'message' => "Customer Creation Failed"
+            'message' => "Customer Creation Failed",
+            'id'=>$userId
         ]);
        }
     }

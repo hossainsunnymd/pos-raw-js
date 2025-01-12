@@ -61,7 +61,6 @@
 <script>
     getProduct();
     async function getProduct() {
-
         let res = await axios.get('/list-product');
         document.getElementById('ProductList').innerHTML = "";
         let row = "";

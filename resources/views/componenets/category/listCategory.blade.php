@@ -43,10 +43,7 @@
 <script>
     getCategory();
     async function getCategory() {
-
         let res=await axios.get('/list-category');
-
-        // console.log(res.data);
         document.getElementById('categoryList').innerHTML="";
         let row="";
         res.data.forEach((category,index) => {
