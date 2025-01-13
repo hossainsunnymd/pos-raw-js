@@ -12,9 +12,9 @@
                 </svg>
               </div>
               <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
-                <h3 class="text-base font-semibold text-gray-900" id="modal-title">Are You sure you want to delete this category?</h3>
+                <h3 class="text-base font-semibold text-gray-900" id="modal-title">Are You sure you want to delete this Product?</h3>
                 <div class="mt-2">
-                  <p class="text-sm text-gray-500">Once you delete this category, you will not be able to recover it.</p>
+                  <p class="text-sm text-gray-500">Once you delete this product, you will not be able to recover it.</p>
                   <input type="text" hidden id="product_id">
                 </div>
               </div>
@@ -45,9 +45,7 @@
 
   async function deleteProduct() {
       const id=document.getElementById('product_id').value;
-      NProgress.start();
        let res= await axios.post('/delete-product', {id:id});
-       NProgress.done();
        if(res.status===200 && res.data['status']==='success'){
         successToast(res.data['message']);
         hideDeleteModal();

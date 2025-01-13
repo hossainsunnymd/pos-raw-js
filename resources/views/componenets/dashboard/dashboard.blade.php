@@ -100,9 +100,7 @@
 
 <script>
     async function getData() {
-        NProgress.start();
         let res= await axios.get('/summary');
-        NProgress.done();
         document.getElementById('product').innerHTML=res.data['product'];
         document.getElementById('category').innerHTML=res.data['category'];
         document.getElementById('customer').innerHTML=res.data['customer'];

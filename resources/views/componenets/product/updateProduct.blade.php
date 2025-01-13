@@ -82,9 +82,7 @@
     }
 
     async function showProductUpdateModal(id) {
-        NProgress.start();
         let res = await axios.get(`/product-by-id?id=${id}`);
-        NProgress.done();
 
         document.getElementById('oldImg').src = res.data['image'];
         document.getElementById('img-url').value = res.data['image'];

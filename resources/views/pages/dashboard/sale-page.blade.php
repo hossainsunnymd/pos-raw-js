@@ -225,12 +225,14 @@
        let total=(parseFloat(price)*parseFloat(qty)).toFixed(2);
        document.getElementById('product-modal').click();
 
-       let item={p_id,name,price,qty,total};
-       listProduct.push(item);
-       ShowInvoiceItem();
-       calculateTotal();
-
-
+       if(qty==''){
+        errorToast('Please Enter Quantity');
+       }else {
+        let item={p_id,name,price,qty,total};
+        listProduct.push(item);
+        ShowInvoiceItem();
+        calculateTotal();
+       }
     }
 
 

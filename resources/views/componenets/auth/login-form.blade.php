@@ -26,11 +26,11 @@
                             class="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500">Forgot
                             password?</a>
                     </div>
-                    <button onclick="login(event)"
+                    <button class="w-full bg-blue-600 text-white p-2 rounded-md hover:bg-blue-500" type="button" onclick="login(event)"
                         class="w-full text-black bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Sign
                         in</button>
                     <p class="text-sm font-light text-gray-500 dark:text-gray-400">
-                        Don’t have an account yet? <a href="#"
+                        Don’t have an account yet? <a href="/registration"
                             class="font-medium text-primary-600 hover:underline dark:text-primary-500">Sign up</a>
                     </p>
                 </form>

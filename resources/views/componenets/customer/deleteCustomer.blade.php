@@ -14,7 +14,7 @@
               <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
                 <h3 class="text-base font-semibold text-gray-900" id="modal-title">Are You sure you want to delete this Customer?</h3>
                 <div class="mt-2">
-                  <p class="text-sm text-gray-500">Once you delete this category, you will not be able to recover it.</p>
+                  <p class="text-sm text-gray-500">Once you delete this customer, you will not be able to recover it.</p>
                   <input type="text" hidden id="customer_id">
                 </div>
               </div>
