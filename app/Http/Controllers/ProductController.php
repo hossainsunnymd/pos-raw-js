@@ -50,7 +50,7 @@ class ProductController extends Controller
 
     public function listProduct(Request $request){
         $userId=$request->header('id');
-        return Product::where('user_id','=',$userId)->get();
+        return Product::where('user_id','=',$userId)->with('category')->get();
     }
 
     public function updateProduct(Request $request){

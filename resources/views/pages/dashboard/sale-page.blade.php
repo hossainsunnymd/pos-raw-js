@@ -104,8 +104,9 @@
               <div class="p-4 md:p-5">
                   <form class="space-y-4">
                       <div>
-                          <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Category Id</label>
-                          <input type="text" id="p-id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" readonly />
+                          <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Category</label>
+                          <input hidden id="p-id" />
+                          <input id="c-name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" readonly />
                       </div>
                       <div>
                         <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
@@ -199,7 +200,7 @@
             row+=`
              <tr>
                 <td class=" px-8 py-2">${product['name']}</td>
-                <td class="px-4 py-2"> <button  onclick="addProduct('${product['id']}','${product['name']}','${product['price']}')" class="bg-green-500 hover:bg-green-600 rounded-md px-1 text-white">Add</button></td>
+                <td class="px-4 py-2"> <button  onclick="addProduct('${product['id']}','${product['name']}','${product['price']}','${product['category']['name']}')" class="bg-green-500 hover:bg-green-600 rounded-md px-1 text-white">Add</button></td>
              </tr>
                 `
         });
@@ -207,10 +208,11 @@
         productList.innerHTML = row;
     }
 
-    async function addProduct(id,name,price){
+    async function addProduct(id,name,price,category){
         document.getElementById('p-id').value = id;
         document.getElementById('p-name').value = name;
         document.getElementById('p-price').value = price;
+        document.getElementById('c-name').value = category;
         document.getElementById('product-modal').click();
 
     }
