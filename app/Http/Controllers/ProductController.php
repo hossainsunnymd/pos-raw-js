@@ -55,15 +55,18 @@ class ProductController extends Controller
 
     public function updateProduct(Request $request){
      try{
+        $id=$request->query('id');
         $userId=$request->header('id');
-        $data=[
-            'category_id'=>$request->category_id,
-            'name'=>$request->name,
-            'price'=>$request->price,
-            'unit'=>$request->unit
-        ];
 
-        if($request->hasFile('image')){
+         if($request->hasFile('image')){
+
+            $data=[
+                'category_id'=>$request->category_id,
+                'name'=>$request->name,
+                'price'=>$request->price,
+                'unit'=>$request->unit
+            ];
+
             $file=$request->file('image');
             $filename=$file->getClientOriginalName();
             $t=time();
@@ -78,7 +81,16 @@ class ProductController extends Controller
             File::delete($oldFile);
 
             Product::where('user_id','=',$userId)->where('id','=',$request->id)->update($data);
+        }else if($id){
+            Product::where('user_id','=',$userId)->where('id','=',$id)->update(['unit'=>$request->unit]);
+            return $id;
         }else{
+            $data=[
+                'category_id'=>$request->category_id,
+                'name'=>$request->name,
+                'price'=>$request->price,
+                'unit'=>$request->unit
+            ];
             Product::where('user_id','=',$userId)->where('id','=',$request->id)->update($data);
         }
         return response()->json([

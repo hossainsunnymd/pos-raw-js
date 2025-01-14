@@ -71,9 +71,7 @@
     fillUpdateCategoryDropDown();
 
     async function fillUpdateCategoryDropDown() {
-        NProgress.start();
         let listCategory = await axios.get('list-category');
-        NProgress.done();
         listCategory.data.forEach(category => {
             document.getElementById('update-category').innerHTML +=
                 `<option value="${category['id']}">${category['name']}</option>`;
