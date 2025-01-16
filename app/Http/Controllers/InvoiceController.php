@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Customer;
 use App\Models\Invoice;
 use App\Models\InvoiceProduct;
+use App\Models\Product;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -45,6 +46,7 @@ class InvoiceController extends Controller
                     'product_id'=>$product['p_id'],
                     'qty'=>$product['qty'],
                     'sales_price'=>$product['total'],
+                     Product::where('id','=',$product['p_id'])->update(['unit'=>$product['existQty']])
                 ]);
             }
 

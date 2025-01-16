@@ -253,13 +253,12 @@
 
                 } else {
                     let existQty=unit-qty;
-                    let res=await axios.post(`/update-product?id=${p_id}`,{unit:existQty});
-                    console.log(res);
                     let item = {
                         p_id,
                         name,
                         price,
                         qty,
+                        existQty,
                         total
                     };
                     listProduct.push(item);
