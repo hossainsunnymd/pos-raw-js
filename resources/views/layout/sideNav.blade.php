@@ -22,7 +22,7 @@
     <section>
         <header>
             <!--Nav-->
-            <nav aria-label="menu nav" class="bg-gray-800 pt-2 md:pt-1 pb-1 px-1 mt-0 h-auto fixed w-full z-20 top-0">
+            <nav aria-label="menu nav" class="bg-gray-800 pt-2 md:pt-1 pb-1 px-1 mt-0 h-auto fixed w-full z-20 top-0 transform md:ml-64 ml-0 ">
 
                 <div class="flex flex-wrap items-center">
                     <div class="flex flex-shrink md:w-1/3 justify-center md:justify-start text-white">
@@ -87,9 +87,9 @@
         </header>
     </section>
 
-    <section class="mt-[59px]">
+    <section class="">
         <aside id="default-sidebar"
-            class="fixed z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0"
+            class="fixed z-40 md:w-64 h-screen transform -translate-x-full md:translate-x-0 transition duration-200 ease-in-out top-0 left-0"
             aria-label="Sidebar">
             <div class="h-full px-3 py-4 overflow-y-auto  bg-gray-800">
                 <ul class="space-y-2 font-medium">
@@ -137,19 +137,13 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{url('/login')}}"
+                        <a href="{{url('/report-page')}}"
                             class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-pink-500">
 
-                            <span class="flex-1 ms-3 whitespace-nowrap">Sign In</span>
+                            <span class="flex-1 ms-3 whitespace-nowrap">Report</span>
                         </a>
                     </li>
-                    <li>
-                        <a href="{{url('/registration')}}"
-                            class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-pink-500">
 
-                            <span class="flex-1 ms-3 whitespace-nowrap">Sign Up</span>
-                        </a>
-                    </li>
                 </ul>
             </div>
         </aside>

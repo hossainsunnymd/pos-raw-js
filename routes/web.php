@@ -5,6 +5,7 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ReportGenerateController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\TokenVarificationMiddleware;
 use Illuminate\Support\Facades\Route;
@@ -35,6 +36,7 @@ Route::get('/customer-page',[CustomerController::class,'customerPage'])->middlew
 Route::get('/product-page',[ProductController::class,'productPage'])->middleware(TokenVarificationMiddleware::class);
 Route::get('/sale-page',[InvoiceController::class,'salePage'])->middleware(TokenVarificationMiddleware::class);
 Route::get('/invoice-page',[InvoiceController::class,'invoicePage'])->middleware(TokenVarificationMiddleware::class);
+Route::get('/report-page',[ReportGenerateController::class,'reportPage'])->middleware(TokenVarificationMiddleware::class);
 
 
 // category
@@ -72,4 +74,5 @@ Route::post('/delete-invoice',[InvoiceController::class,'deleteInvoice'])->middl
 
 //summary and report
 Route::get('/summary',[DashboardController::class,'summary'])->middleware(TokenVarificationMiddleware::class);
+Route::get('/report',[ReportGenerateController::class,'salesReport'])->middleware(TokenVarificationMiddleware::class);
 
